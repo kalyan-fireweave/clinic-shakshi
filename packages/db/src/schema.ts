@@ -1,3 +1,4 @@
+import "./fireweave/start"; // FireWeave: must stay the first import
 import { boolean, date, integer, jsonb, pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {

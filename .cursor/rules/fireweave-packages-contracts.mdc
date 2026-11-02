@@ -1,0 +1,15 @@
+---
+description:
+globs: packages/contracts/**
+alwaysApply: false
+---
+
+<!-- fireweave:begin role=app-rule format=2 sha256=5fcda516aafc45e50ce59c97c71b0977cf0c25deabb7d2ff71dbf7dd65541847 -->
+## FireWeave — `packages/contracts` (ts-server)
+
+FireWeave's rollout contract is in the repository-root `AGENTS.md`: Read it before you change behaviour in this app if it is not in your context.
+
+- Control points here: `await fw.controlPoints.getBooleanValue('<key>', false, { targetingKey: user.id })` from `@fireweaveai/server-sdk/start`; local values in `src/fireweave/control-points.ts`
+- Before you write an emit call, read `.fireweave/instructions/metrics-packages-contracts.md`.
+- Start options and overrides: `.fireweave/instructions/sdk-ts-server.md`.
+<!-- fireweave:end role=app-rule -->

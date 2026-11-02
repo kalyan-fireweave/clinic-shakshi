@@ -1,6 +1,8 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { createAuthMiddleware } from "better-auth/api";
 import { organization } from "better-auth/plugins";
+import { fw } from "@fireweaveai/server-sdk/start";
 import { account, invitation, member, organization as organizationTable, session, user, verification } from "@clinic/db";
 import { db } from "./db";
 import { env } from "./env";
@@ -35,4 +37,12 @@ export const auth = betterAuth({
     }),
   ],
   trustedOrigins: originPair(env.authUrl),
+  hooks: {
+    after: createAuthMiddleware(async (ctx) => {
+      const identified = ctx.context.newSession;
+      if (identified) {
+        await fw.identify(identified.user.id, { email: identified.user.email });
+      }
+    }),
+  },
 });
