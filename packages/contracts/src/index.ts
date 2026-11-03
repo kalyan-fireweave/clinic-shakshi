@@ -1,3 +1,4 @@
+import "./fireweave/start"; // FireWeave: must stay the first import
 import { z } from "zod";
 
 export const packetSectionSchema = z.object({

@@ -4,6 +4,7 @@ import { Calendar, FileCheck, Inbox, LayoutDashboard, Mic, Settings, Sliders } f
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { fw } from "@fireweaveai/web-sdk/start";
 import { useCounts } from "../lib/counts";
 import { Button } from "./Button";
 
@@ -55,6 +56,7 @@ export function Sidebar({ clinicName, userName, role }: Props) {
 
   async function signOut() {
     await fetch("/api/auth/sign-out", { method: "POST" });
+    await fw.reset();
     window.location.href = "/login";
   }
 

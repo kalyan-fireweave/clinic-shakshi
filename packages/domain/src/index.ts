@@ -1,3 +1,4 @@
+import "./fireweave/start"; // FireWeave: must stay the first import
 export { giPreset } from "./preset";
 export { evaluate, planVisit } from "./rules";
 export { nextSlot } from "./schedule";

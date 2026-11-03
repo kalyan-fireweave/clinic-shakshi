@@ -1,3 +1,4 @@
+import "./fireweave/start"; // FireWeave: must stay the first import
 import { createHash } from "node:crypto";
 import { serve } from "@hono/node-server";
 import { and, asc, eq } from "drizzle-orm";
