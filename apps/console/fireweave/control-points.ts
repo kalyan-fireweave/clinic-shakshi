@@ -3,5 +3,5 @@
 import { defineControlPoints } from '@fireweaveai/web-sdk/start';
 
 export const controlPoints = defineControlPoints({
-  // 'new-checkout': { local: true },
+  'reminders': { local: true },
 });

@@ -23,4 +23,8 @@ export const COPY = {
   doctorAdded: "Doctor added. They can sign in with that email.",
   doctorFailed: "Could not add that person.",
   doctorExists: "That email is already in use.",
+  emptyReminders: "No patient reminders yet. Add one when a visit needs a follow-up call.",
+  remindersOff: "Reminders are off for this desk. Ask an admin to turn the rollout on.",
+  reminderCreateFailed: "Could not save that reminder.",
+  reminderCompleteFailed: "Could not mark the reminder done.",
 } as const;

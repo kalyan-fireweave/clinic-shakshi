@@ -1,10 +1,11 @@
 "use client";
 
-import { Calendar, FileCheck, Inbox, LayoutDashboard, Mic, Settings, Sliders } from "lucide-react";
+import { Bell, Calendar, FileCheck, Inbox, LayoutDashboard, Mic, Settings, Sliders } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { fw } from "@fireweaveai/web-sdk/start";
+import { useEffect, useState } from "react";
 import { useCounts } from "../lib/counts";
 import { Button } from "./Button";
 
@@ -52,6 +53,13 @@ function NavItem({
 export function Sidebar({ clinicName, userName, role }: Props) {
   const path = usePathname();
   const { counts } = useCounts();
+  const [, setTick] = useState(0);
+  useEffect(() => fw.subscribe(() => setTick((n) => n + 1)), []);
+  // @fireweave-controlpoint reminders
+  const remindersOn = fw.controlPoints.getBooleanValue("reminders", false);
+  const nav = remindersOn
+    ? [...today, { href: "/reminders", label: "Reminders", icon: Bell }]
+    : today;
   const active = (href: string) => path === href || path.startsWith(`${href}/`) || (href === "/auth" && path.startsWith("/prior-auth"));
 
   async function signOut() {
@@ -72,14 +80,14 @@ export function Sidebar({ clinicName, userName, role }: Props) {
       </div>
       <div className="nav-section">
         <div className="nav-label">Today</div>
-        {today.map((item) => (
+        {nav.map((item) => (
           <NavItem
             key={item.href}
             href={item.href}
             label={item.label}
             icon={item.icon}
             current={active(item.href)}
-            badge={item.badge === "inbox" ? counts.inbox : item.badge === "pa" ? counts.priorAuth : undefined}
+            badge={"badge" in item ? (item.badge === "inbox" ? counts.inbox : item.badge === "pa" ? counts.priorAuth : undefined) : undefined}
           />
         ))}
       </div>
