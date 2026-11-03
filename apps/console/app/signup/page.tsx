@@ -1,5 +1,6 @@
 "use client";
 
+import { fw } from "@fireweaveai/web-sdk/start";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "../../components/Button";
@@ -42,6 +43,10 @@ export default function SignupPage() {
       setPending(false);
       setError(await message(signUp, COPY.signUpError));
       return;
+    }
+    const signed = (await signUp.json().catch(() => null)) as { user?: { id?: string; email?: string } } | null;
+    if (signed?.user?.id) {
+      await fw.identify(signed.user.id, { email: signed.user.email });
     }
     setDone(1);
     const org = await fetch("/api/auth/organization/create", {

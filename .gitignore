@@ -13,3 +13,4 @@ blob-report
 coverage
 .DS_Store
 infra/.data
+.fireweave/.cache/

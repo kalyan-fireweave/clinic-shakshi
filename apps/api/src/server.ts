@@ -20,6 +20,7 @@ import { registerDesk } from "./desk";
 import { env } from "./env";
 import { migrate } from "./migrate";
 import { recordSpan, startTelemetry } from "./otel";
+import { registerReminders } from "./reminders";
 import { ensureBucket, getPdf, putPdf } from "./storage";
 import { signalReview, temporal } from "./temporal";
 import { retry } from "./wait";
@@ -269,6 +270,7 @@ app.post("/internal/tokens/consume", async (c) => {
 });
 
 registerDesk(app, staff);
+registerReminders(app, staff);
 
 await startTelemetry();
 await retry("postgres", () => migrate());

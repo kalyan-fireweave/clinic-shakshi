@@ -238,6 +238,18 @@ export const clinicalNotes = pgTable("clinical_notes", {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const reminders = pgTable("reminders", {
+  id: text("id").primaryKey(),
+  clinicId: text("clinic_id").notNull(),
+  referralId: text("referral_id"),
+  patientName: text("patient_name").notNull(),
+  channel: text("channel").notNull(),
+  dueAt: timestamp("due_at", { withTimezone: true }).notNull(),
+  note: text("note").notNull().default(""),
+  status: text("status").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const schema = {
   user,
   session,
@@ -262,4 +274,5 @@ export const schema = {
   callAttempts,
   priorAuths,
   clinicalNotes,
+  reminders,
 };
